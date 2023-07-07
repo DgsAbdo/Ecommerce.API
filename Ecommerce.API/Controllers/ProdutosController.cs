@@ -34,15 +34,22 @@ namespace Ecommerce.Api.Controllers
         }
 
         [HttpPost]
-        public ResultModel CriarProduto([FromBody] ProdutoModel model, [FromServices] ProdutoService handler)
+        public ResultModel CriarProduto([FromBody] ProdutoModel model, [FromServices] ProdutoService service)
         {
-            return handler.CriarProduto(model);
+            return service.CriarProduto(model);
         }
 
         [HttpPut]
-        public ResultModel ModificarProduto([FromBody] ProdutoUpdateModel produtoModel, [FromServices] ProdutoService handler)
+        public ResultModel ModificarProduto([FromBody] ProdutoUpdateModel produtoModel, [FromServices] ProdutoService service)
         {
-            return handler.ModificarProduto(produtoModel);
+            return service.ModificarProduto(produtoModel);
+        }
+
+        //Implementar logica de delete
+        [HttpDelete]
+        public ResultModel DeletarProduto([FromBody] ProdutoUpdateModel updateModel, [FromServices] ProdutoService service)
+        {
+            return null;
         }
     }
 }

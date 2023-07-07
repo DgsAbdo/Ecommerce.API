@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Ecommerce.Api.Controllers
 {
     [ApiController]
-    [Route("CarrinhoCompras")]
+    [Route("carrinhoCompras")]
     public class CarrinhoComprasController
     {
         //[Route("")]

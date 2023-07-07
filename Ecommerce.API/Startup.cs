@@ -26,6 +26,9 @@ namespace Ecommerce.Api
 
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddTransient<ProdutoService, ProdutoService>();
+
+            services.AddTransient<IPromocaoRepository, PromocaoRepository>();
+            services.AddTransient<PromocaoService, PromocaoService>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)

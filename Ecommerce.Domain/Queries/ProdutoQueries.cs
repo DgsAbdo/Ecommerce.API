@@ -27,7 +27,7 @@ namespace Ecommerce.Domain.Queries
 
         public static Expression<Func<Produto, bool>> PegarProdutoComPromocao()
         {
-            return x => x.PromocaoId != null ;
+            return x => x.Promocao != null ;
         }
     }
 }

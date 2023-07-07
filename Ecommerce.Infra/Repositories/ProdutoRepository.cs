@@ -3,11 +3,7 @@ using Ecommerce.Domain.Queries;
 using Ecommerce.Domain.Repositories;
 using Ecommerce.Infra.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Ecommerce.Infra.Repositories
 {
@@ -44,7 +40,7 @@ namespace Ecommerce.Infra.Repositories
 
         public IEnumerable<Produto> PegarTodosComPromocao()
         {
-            return _context.Produtos.AsNoTracking().Where(ProdutoQueries.PegarProdutoComPromocao()).OrderBy(x => x.Id);
+            return _context.Produtos.AsNoTracking().Include(p => p.Promocao).OrderBy(x => x.Id);
         }
     }
 }
