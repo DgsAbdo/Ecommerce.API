@@ -15,7 +15,7 @@ namespace Ecommerce.Infra.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Produto>().ToTable("Produtos");
-            modelBuilder.Entity<Produto>().Property(x => x.Id);
+            modelBuilder.Entity<Produto>().Property(x => x.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Produto>().Property(x => x.Nome).HasMaxLength(120).HasColumnType("varchar(120)");
             modelBuilder.Entity<Produto>().Property(x => x.Preco);
             modelBuilder.Entity<Produto>().Property(x => x.PromocaoId);

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Domain.Entities
 {
-    public class Promocao
+    public class ProdutosPromocao
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public bool PromocaoComValorFixo { get; set; }
-        public int QuantidadeProdutos { get; set; }
-        public double Valor { get; set; }
+        public double Preco { get; set; }
+        public int PromocaoId { get; set; }
+        public Promocao Promocao { get; set; }
     }
 }

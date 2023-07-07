@@ -6,14 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Domain.Commands
 {
-    public class ProdutoCommand
+    public class ProdutoModel
     {
-        public ProdutoCommand() 
-        {
-            
-        }
-
-        public ProdutoCommand(string nome, double preco, int promocaoId)
+        public ProdutoModel(string nome, double preco, int promocaoId)
         {
             Nome= nome;
             Preco= preco;
@@ -23,6 +18,14 @@ namespace Ecommerce.Domain.Commands
         public string Nome { get; set; }
         public double Preco { get; set; }
         public int PromocaoId { get; set; }
+
+        public bool ValidarProduto()
+        {
+            if (!string.IsNullOrEmpty(Nome) && Preco != 0)
+                return true;
+
+            return false;
+        }
 
     }
 }

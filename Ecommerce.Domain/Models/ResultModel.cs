@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Domain.Commands
 {
-    public class CommandResult 
+    public class ResultModel 
     {
-        public CommandResult() { }
+        public ResultModel() { }
 
-        public CommandResult(bool sucesso, string mensagem, object dados)
+        public ResultModel(bool sucesso, string mensagem, object dados)
         {
             Sucesso = sucesso;
             Mensagem = mensagem;

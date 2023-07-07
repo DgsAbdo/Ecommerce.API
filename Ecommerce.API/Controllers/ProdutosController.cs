@@ -1,33 +1,48 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Ecommerce.Domain.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
 using Ecommerce.Domain.Commands;
-using System.Security.Cryptography.X509Certificates;
-using Ecommerce.Domain.Handlers;
+using Ecommerce.Domain.Services;
+using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Models;
 
 namespace Ecommerce.Api.Controllers
 {
     [ApiController]
-    [Route("Produtos")]
+    [Route("produtos")]
     public class ProdutosController : ControllerBase
     {
-        //[Route("")]
-        //[HttpGet]
-        //public IEnumerable<Produto> GetAll(
-        //    [FromServices] ITodoRepository repository
-        //)
-        //{
-        //    var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
-        //    return repository.GetAll(user);
-        //}
+        [HttpGet]
+        [Route("obterTodosProdutos")]
+        public IEnumerable<Produto> BuscarTodosProdutos([FromServices] IProdutoRepository repository)
+        {
+            return repository.PegarTodos();
+        }
 
-        private ProdutoHandler handler;
+        [HttpGet]
+        [Route("obterProdutoPorId")]
+        public Produto BuscarProdutoPorId([FromServices] IProdutoRepository repository, int id)
+        {
+            return repository.PegarPorId(id);
+        }
+
+        //Modificar para trazer as informações de promocao junto
+        [HttpGet]
+        [Route("obterProdutosComPromocao")]
+        public IEnumerable<Produto> BuscarProdutosComPromocao([FromServices] IProdutoRepository repository)
+        {
+            return repository.PegarTodosComPromocao();
+        }
 
         [HttpPost]
-        public CommandResult CriarProduto([FromBody] ProdutoCommand command)
+        public ResultModel CriarProduto([FromBody] ProdutoModel model, [FromServices] ProdutoService handler)
         {
-            handler = new ProdutoHandler();
-            return handler.CriarProduto(command);
+            return handler.CriarProduto(model);
+        }
+
+        [HttpPut]
+        public ResultModel ModificarProduto([FromBody] ProdutoUpdateModel produtoModel, [FromServices] ProdutoService handler)
+        {
+            return handler.ModificarProduto(produtoModel);
         }
     }
 }

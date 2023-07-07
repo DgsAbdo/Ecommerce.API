@@ -5,7 +5,6 @@ namespace Ecommerce.Api.Controllers
 {
     [ApiController]
     [Route("CarrinhoCompras")]
-    [Authorize]
     public class CarrinhoComprasController
     {
         //[Route("")]

@@ -8,17 +8,24 @@ namespace Ecommerce.Domain.Entities
 {
     public class Produto
     {
-        public Produto(int id, string nome, double preco, string idPromocao) 
+        public Produto(int id, string nome, double preco, int promocaoId) 
         {
             Id= id;
             Nome= nome;
             Preco= preco;
-            PromocaoId= idPromocao;
+            PromocaoId= promocaoId;
+        }
+
+        public Produto(string nome, double preco, int promocaoId)
+        {
+            Nome = nome;
+            Preco = preco;
+            PromocaoId = promocaoId;
         }
 
         public int Id { get; set; }
         public string Nome { get; set; }
         public double Preco { get; set; }
-        public string PromocaoId { get; set; }
+        public int PromocaoId { get; set; }
     }
 }

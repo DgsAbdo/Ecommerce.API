@@ -1,4 +1,7 @@
-﻿using Ecommerce.Infra.Context;
+﻿using Ecommerce.Domain.Services;
+using Ecommerce.Domain.Repositories;
+using Ecommerce.Infra.Context;
+using Ecommerce.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Api
@@ -20,6 +23,9 @@ namespace Ecommerce.Api
 
             services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
             //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+
+            services.AddTransient<IProdutoRepository, ProdutoRepository>();
+            services.AddTransient<ProdutoService, ProdutoService>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
@@ -32,6 +38,13 @@ namespace Ecommerce.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseAuthorization();
 

@@ -7,5 +7,7 @@ namespace Ecommerce.Domain.Repositories
         void Criar(Produto produto);
         void Atualizar(Produto produto);
         Produto PegarPorId(int id);
+        IEnumerable<Produto> PegarTodos();
+        IEnumerable<Produto> PegarTodosComPromocao();
     }
 }
