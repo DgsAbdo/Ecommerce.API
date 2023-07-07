@@ -4,7 +4,6 @@ using Ecommerce.Domain.Repositories;
 using Ecommerce.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Ecommerce.Infra.Repositories
 {
     public class ProdutoRepository : IProdutoRepository
@@ -41,6 +40,12 @@ namespace Ecommerce.Infra.Repositories
         public IEnumerable<Produto> PegarTodosComPromocao()
         {
             return _context.Produtos.AsNoTracking().Include(p => p.Promocao).OrderBy(x => x.Id);
+        }
+
+        public void Deletar(int id)
+        {
+            _context.Produtos.Where(ProdutoQueries.PegarProdutoPorID(id)).ExecuteDelete();
+            _context.SaveChanges();
         }
     }
 }

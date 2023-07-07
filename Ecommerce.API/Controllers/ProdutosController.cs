@@ -47,9 +47,9 @@ namespace Ecommerce.Api.Controllers
 
         //Implementar logica de delete
         [HttpDelete]
-        public ResultModel DeletarProduto([FromBody] ProdutoUpdateModel updateModel, [FromServices] ProdutoService service)
+        public ResultModel DeletarProduto([FromServices] ProdutoService service, int id)
         {
-            return null;
+            return service.DeletarProduto(id);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Ecommerce.Domain.Repositories
         Produto PegarPorId(int id);
         IEnumerable<Produto> PegarTodos();
         IEnumerable<Produto> PegarTodosComPromocao();
+        void Deletar(int id);
     }
 }

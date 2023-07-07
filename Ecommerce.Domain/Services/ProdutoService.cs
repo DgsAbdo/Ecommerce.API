@@ -42,5 +42,15 @@ namespace Ecommerce.Domain.Services
 
             return new ResultModel(true, "Produto atualizado.", produtoEntity);
         }
+
+        public ResultModel DeletarProduto(int id)
+        {
+            if (id == 0)
+                return new ResultModel(false, "Id invalido.", id);
+
+            _repository.Deletar(id);
+
+            return new ResultModel(true, "Produto deletado com sucesso.", id);
+        }
     }
 }
