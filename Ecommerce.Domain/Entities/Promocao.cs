@@ -1,39 +1,33 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace Ecommerce.Domain.Entities
 {
     public class Promocao
     {
-        public Promocao(string nome, bool promocaoComValorFixo, int quantidadeProdutos, double valor) 
+        public Promocao(string nome, bool promocaoComValorFixo, int quantidade, double valor) 
         {
             Nome= nome;
             PromocaoComValorFixo= promocaoComValorFixo;
-            QuantidadeProdutos= quantidadeProdutos;
+            Quantidade= quantidade;
             Valor= valor;
         }
 
-        public Promocao(int id, string nome, bool promocaoComValorFixo, int quantidadeProdutos, double valor)
+        public Promocao(int id, string nome, bool promocaoComValorFixo, int quantidade, double valor)
         {
             Id= id;
             Nome = nome;
             PromocaoComValorFixo = promocaoComValorFixo;
-            QuantidadeProdutos = quantidadeProdutos;
+            Quantidade = quantidade;
             Valor = valor;
         }
 
         public int Id { get; set; }
         public string Nome { get; set; }
         public bool PromocaoComValorFixo { get; set; }
-        public int QuantidadeProdutos { get; set; }
+        public int Quantidade { get; set; }
         public double Valor { get; set; }
 
         [JsonIgnore]
-        public List<Produto> Produtos { get; set; }
+        public List<Produto>? Produtos { get; set; }
     }
 }

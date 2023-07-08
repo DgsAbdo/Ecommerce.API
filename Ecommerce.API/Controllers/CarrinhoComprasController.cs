@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ecommerce.Domain.Commands;
+using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Repositories;
+using Ecommerce.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
@@ -7,15 +10,18 @@ namespace Ecommerce.Api.Controllers
     [Route("carrinhoCompras")]
     public class CarrinhoComprasController
     {
-        //[Route("")]
-        //[HttpGet]
-        //public IEnumerable<TodoItem> GetAll(
-        //    [FromServices] ITodoRepository repository
-        //)
-        //{
-        //    var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
-        //    return repository.GetAll(user);
-        //}
+        [HttpGet]
+        public CarrinhoCompras RetornarCarrinhoCompras([FromServices] ICarrinhoRepository repository) 
+        {
+            return repository.retornarCarrinhoDeCompras();
+        }
+
+        [Route("adicionarProdutoNoCarrinho")]
+        [HttpPut]
+        public ResultModel AdicionarProdutoNoCarrinho([FromServices] CarrinhoService service, int idProduto)
+        {
+            return service.AdicionarProdutoNoCarrinho(idProduto);
+        }
 
     }
 }

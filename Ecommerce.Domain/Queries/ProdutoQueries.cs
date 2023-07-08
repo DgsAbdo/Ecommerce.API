@@ -12,7 +12,7 @@ namespace Ecommerce.Domain.Queries
     {
         public static Expression<Func<Produto, bool>> PegarProdutoPorID(int id)
         {
-            return x => x.Id == id;
+            return x => (x.Id == id);
         }
 
         public static Expression<Func<Produto, bool>> PegarProdutoPorNome(string nome)

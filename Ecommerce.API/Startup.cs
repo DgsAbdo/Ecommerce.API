@@ -29,6 +29,9 @@ namespace Ecommerce.Api
 
             services.AddTransient<IPromocaoRepository, PromocaoRepository>();
             services.AddTransient<PromocaoService, PromocaoService>();
+
+            services.AddTransient<ICarrinhoRepository, CarrinhoRepository>();
+            services.AddTransient<CarrinhoService, CarrinhoService>();
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ecommerce.Domain.Commands
+﻿namespace Ecommerce.Domain.Commands
 {
     public class ProdutoModel
     {
-        public ProdutoModel(string nome, double preco, int promocaoId)
+        public ProdutoModel(string nome, double preco, int? promocaoId)
         {
             Nome= nome;
             Preco= preco;
@@ -17,7 +11,7 @@ namespace Ecommerce.Domain.Commands
 
         public string Nome { get; set; }
         public double Preco { get; set; }
-        public int PromocaoId { get; set; }
+        public int? PromocaoId { get; set; }
 
         public bool ValidarProduto()
         {

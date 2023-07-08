@@ -8,8 +8,6 @@ namespace Ecommerce.Domain.Commands
 {
     public class ResultModel 
     {
-        public ResultModel() { }
-
         public ResultModel(bool sucesso, string mensagem, object dados)
         {
             Sucesso = sucesso;
