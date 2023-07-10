@@ -29,7 +29,7 @@ namespace Ecommerce.Infra.Repositories
 
         public Produto PegarPorId(int id)
         {
-            return _context.Produtos.FirstOrDefault(ProdutoQueries.PegarProdutoPorID(id));
+            return _context.Produtos.Include(p => p.Promocao).FirstOrDefault(ProdutoQueries.PegarProdutoPorID(id));
         }
 
         public IEnumerable<Produto> PegarTodos()

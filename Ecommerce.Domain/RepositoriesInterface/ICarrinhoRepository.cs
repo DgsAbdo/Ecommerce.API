@@ -10,8 +10,10 @@ namespace Ecommerce.Domain.Repositories
 {
     public interface ICarrinhoRepository
     {
-        public void AdicionarProdutoNoCarrinho(Produto produto);
         public CarrinhoCompras retornarCarrinhoDeCompras();
+        void AtualizarCarrinhoCompras(CarrinhoCompras carrinho);
+        void LimparCarrinho();
+        void RemoverProdutosDoCarrinho();
 
     }
 }

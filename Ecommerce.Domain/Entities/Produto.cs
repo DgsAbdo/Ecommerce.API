@@ -11,19 +11,12 @@ namespace Ecommerce.Domain.Entities
             PromocaoId = promocaoId;
         }
 
-        //public Produto(int id, string nome, double preco)
-        //{
-        //    Id = id;
-        //    Nome = nome;
-        //    Preco = preco;
-        //}
-
-        public Produto(int id, string nome, double preco, int? promocaoId) 
+        public Produto(int id, string nome, double preco, int? promocaoId)
         {
-            Id= id;
-            Nome= nome;
-            Preco= preco;
-            PromocaoId= promocaoId;
+            Id = id;
+            Nome = nome;
+            Preco = preco;
+            PromocaoId = promocaoId;
         }
 
         public int Id { get; set; }
@@ -31,9 +24,7 @@ namespace Ecommerce.Domain.Entities
         public double Preco { get; set; }
         public int? PromocaoId { get; set; }
         public Promocao? Promocao { get; set; }
-        public int? CarrinhoComprasId { get; set; }
         [JsonIgnore]
-        public CarrinhoCompras? CarrinhoCompras { get; set; }
-        //public List<ProdutoCarrinho>? ProdutosCarrinho { get; set; }
+        public ICollection<ItemCarrinho>? ItensCarrinho { get; set; }
     }
 }

@@ -16,12 +16,25 @@ namespace Ecommerce.Api.Controllers
             return repository.retornarCarrinhoDeCompras();
         }
 
-        [Route("adicionarProdutoNoCarrinho")]
+        [Route("adicionarProdutosNoCarrinho")]
         [HttpPut]
-        public ResultModel AdicionarProdutoNoCarrinho([FromServices] CarrinhoService service, int idProduto)
+        public ResultModel AdicionarProdutoNoCarrinho([FromServices] CarrinhoService service, int idProduto, int quantidade)
         {
-            return service.AdicionarProdutoNoCarrinho(idProduto);
+            return service.AdicionarProdutoNoCarrinho(idProduto, quantidade);
         }
 
+        [Route("removerProdutosNoCarrinho")]
+        [HttpPut]
+        public ResultModel RemoverProdutoNoCarrinho([FromServices] CarrinhoService service, int idProduto, int quantidade)
+        {
+            return service.RemoverProdutoDoCarrinho(idProduto, quantidade);
+        }
+
+        [Route("limparProdutosNoCarrinho")]
+        [HttpPut]
+        public ResultModel LimparProdutoNoCarrinho([FromServices] CarrinhoService service)
+        {
+            return service.LimparProdutosDoCarrinho();
+        }
     }
 }

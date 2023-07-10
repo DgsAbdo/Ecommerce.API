@@ -4,17 +4,17 @@ namespace Ecommerce.Domain.Entities
 {
     public class Promocao
     {
-        public Promocao(string nome, bool promocaoComValorFixo, int quantidade, double valor) 
+        public Promocao(string nome, bool promocaoComValorFixo, int quantidade, double valor)
         {
-            Nome= nome;
-            PromocaoComValorFixo= promocaoComValorFixo;
-            Quantidade= quantidade;
-            Valor= valor;
+            Nome = nome;
+            PromocaoComValorFixo = promocaoComValorFixo;
+            Quantidade = quantidade;
+            Valor = valor;
         }
 
         public Promocao(int id, string nome, bool promocaoComValorFixo, int quantidade, double valor)
         {
-            Id= id;
+            Id = id;
             Nome = nome;
             PromocaoComValorFixo = promocaoComValorFixo;
             Quantidade = quantidade;
@@ -26,8 +26,7 @@ namespace Ecommerce.Domain.Entities
         public bool PromocaoComValorFixo { get; set; }
         public int Quantidade { get; set; }
         public double Valor { get; set; }
-
         [JsonIgnore]
-        public List<Produto>? Produtos { get; set; }
+        public ICollection<Produto>? Produtos { get; set; }
     }
 }
