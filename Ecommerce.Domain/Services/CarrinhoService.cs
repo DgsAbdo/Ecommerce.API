@@ -45,7 +45,7 @@ namespace Ecommerce.Domain.Services
             try
             {
                 CarrinhoCompras carrinho = _repositoryCarrinho.retornarCarrinhoDeCompras();
-                RemoverItemDoCarrinho(quantidade, idProduto, carrinho);
+                carrinho = RemoverItemDoCarrinho(quantidade, idProduto, carrinho);
                 carrinho.ValorTotal = CalcularValorTotalCarrinho(carrinho);
                 _repositoryCarrinho.AtualizarCarrinhoCompras(carrinho);
                 return new ResultModel(true, $"Item removido do carrinho.", carrinho);
@@ -171,10 +171,10 @@ namespace Ecommerce.Domain.Services
         private double CalcularValorItemPromocaoValorNaoFixo(ItemCarrinho item, Promocao promocao)
         {
             int quantidadePromocional = promocao.Quantidade;
-            int quantidadePromocoesAplicadas = item.Quantidade / (quantidadePromocional + 1);
-            int quantidadeProdutosSemPromocao = item.Quantidade % (quantidadePromocional + 1);
+            int quantidadePromocoesAplicadas = item.Quantidade / (quantidadePromocional);
+            int quantidadeProdutosSemPromocao = item.Quantidade % (quantidadePromocional);
 
-            double valorItem = (quantidadePromocoesAplicadas * (promocao.Valor * quantidadePromocional)) + 
+            double valorItem = (quantidadePromocoesAplicadas * (promocao.Valor * item.Produto.Preco)) + 
                 (quantidadeProdutosSemPromocao * item.Produto.Preco);
 
             return valorItem;

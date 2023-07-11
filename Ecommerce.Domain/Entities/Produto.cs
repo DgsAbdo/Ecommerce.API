@@ -8,7 +8,7 @@ namespace Ecommerce.Domain.Entities
         {
             Nome = nome;
             Preco = preco;
-            PromocaoId = promocaoId;
+            PromocaoId = promocaoId == 0 ? null:promocaoId;
         }
 
         public Produto(int id, string nome, double preco, int? promocaoId)
@@ -16,7 +16,7 @@ namespace Ecommerce.Domain.Entities
             Id = id;
             Nome = nome;
             Preco = preco;
-            PromocaoId = promocaoId;
+            PromocaoId = promocaoId == 0 ? null : promocaoId;
         }
 
         public int Id { get; set; }
