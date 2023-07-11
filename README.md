@@ -1,5 +1,5 @@
 # Ecommerce.API
-Projeto criado para o processor seletivo da empresa Siteware.
+Projeto criado para o processo seletivo da empresa Siteware.
 
 # Tecnologias:
 
