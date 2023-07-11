@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Domain.Entities;
+using Ecommerce.Infra.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infra.Context
@@ -29,10 +30,12 @@ namespace Ecommerce.Infra.Context
             modelBuilder.Entity<Promocao>().Property(p => p.Quantidade).IsRequired();
             modelBuilder.Entity<Promocao>().Property(p => p.Valor).IsRequired();
             modelBuilder.Entity<Promocao>().HasMany(p => p.Produtos).WithOne(pr => pr.Promocao).HasForeignKey(pr => pr.PromocaoId);
+            modelBuilder.ApplyConfiguration<Promocao>(new PromocaoConfiguration());
 
             modelBuilder.Entity<CarrinhoCompras>().ToTable("CarrinhoCompras");
             modelBuilder.Entity<CarrinhoCompras>().HasKey(c => c.Id);
             modelBuilder.Entity<CarrinhoCompras>().Property(c => c.ValorTotal).IsRequired();
+            modelBuilder.Entity<CarrinhoCompras>().HasMany(c => c.ItensCarrinho).WithOne(i => i.CarrinhoCompras).HasForeignKey(i => i.CarrinhoComprasId);
 
             modelBuilder.Entity<ItemCarrinho>().ToTable("ItensCarrinho");
             modelBuilder.Entity<ItemCarrinho>().HasKey(ic => ic.Id);

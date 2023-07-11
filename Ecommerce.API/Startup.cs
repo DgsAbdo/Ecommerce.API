@@ -21,8 +21,9 @@ namespace Ecommerce.Api
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
-            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
-            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddDbContext<DataContext>(opt => 
+            opt.UseSqlServer(Configuration.GetConnectionString("sqlServer")));
 
             services.AddTransient<IProdutoRepository, ProdutoRepository>();
             services.AddTransient<ProdutoService, ProdutoService>();

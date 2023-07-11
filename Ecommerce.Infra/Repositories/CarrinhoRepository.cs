@@ -25,7 +25,8 @@ namespace Ecommerce.Infra.Repositories
 
         public CarrinhoCompras retornarCarrinhoDeCompras()
         {
-            CarrinhoCompras carrinho = _context.Carrinho.Include(i => i.ItensCarrinho).ThenInclude(p => p.Produto).FirstOrDefault(c => c.Id == 1);
+            CarrinhoCompras carrinho = _context.Carrinho.Include(i => i.ItensCarrinho).ThenInclude(p => p.Produto)
+                .ThenInclude(pr => pr.Promocao).FirstOrDefault(c => c.Id == 1);
             
             if (carrinho == null)
                 carrinho = CriarCarrinhoCompras();
@@ -37,7 +38,6 @@ namespace Ecommerce.Infra.Repositories
         {
             var carrinho = new CarrinhoCompras()
             {
-                Id = 1,
                 ValorTotal = 0,
                 ItensCarrinho = new List<ItemCarrinho>()
             };

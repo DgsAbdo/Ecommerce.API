@@ -34,12 +34,12 @@ namespace Ecommerce.Infra.Repositories
 
         public IEnumerable<Produto> PegarTodos()
         {
-            return _context.Produtos.AsNoTracking().OrderBy(x => x.Id);
+            return _context.Produtos.AsNoTracking().OrderBy(x => x.Id).Include(pr => pr.Promocao);
         }
 
         public IEnumerable<Produto> PegarTodosComPromocao()
         {
-            return _context.Produtos.AsNoTracking().Include(p => p.Promocao).OrderBy(x => x.Id);
+            return _context.Produtos.AsNoTracking().Include(p => p.Promocao).OrderBy(x => x.Id).Include(pr => pr.Promocao);
         }
 
         public void Deletar(int id)

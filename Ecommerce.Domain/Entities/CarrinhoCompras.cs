@@ -1,4 +1,6 @@
-﻿namespace Ecommerce.Domain.Entities
+﻿using System.Text.Json.Serialization;
+
+namespace Ecommerce.Domain.Entities
 {
     public class CarrinhoCompras
     {
