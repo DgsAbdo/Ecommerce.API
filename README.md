@@ -1,5 +1,5 @@
 # Ecommerce.API
-Projeto criado para o processo seletivo da empresa Siteware.
+Este projeto foi criado como parte para o processo seletivo da empresa Siteware.
 
 # Tecnologias:
 
@@ -26,7 +26,7 @@ https://learn.microsoft.com/pt-br/sql/tools/overview-sql-tools?view=sql-server-v
 # Como executar a aplicação:
 
 ## Banco de dados:
-Alterar e configurar a connection string no atributo 'sqlServer' na pasta 'Ecommerce.API\Ecommerce.API\appsettings.json'.
+Alterar e configurar a connection string no atributo 'sqlServer' na pasta '\Ecommerce.API\appsettings.json'.
 
 "sqlServer": "Server={nome do servidor};Database={nome do banco de dados};User={usuario};Password={senha};TrustServerCertificate=True"
 
@@ -34,7 +34,7 @@ Alterar e configurar a connection string no atributo 'sqlServer' na pasta 'Ecomm
 Comando: dotnet ef database update --startup-project ..\Ecommerce.API\
 
 ## Visual Studio Code:
-Executar o comando 'dotnet run' no terminal dentro da pasta \Ecommerce.API\Ecommerce.API
+Para executar a aplicação no Visual Studio Code, execute o seguinte comando no terminal, dentro da pasta 'Ecommerce.API': dotnet run
 
-## Documentação das requisições da API:
-Após executar a aplicação: https://localhost:7293/swagger/index.html
+## Documentação da API:
+Após executar a aplicação, você pode acessar a documentação das requisições da API através do seguinte link: https://localhost:7293/swagger/index.html
