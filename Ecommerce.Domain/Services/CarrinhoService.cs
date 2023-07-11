@@ -1,7 +1,6 @@
 ﻿using Ecommerce.Domain.Commands;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Repositories;
-using System.Linq.Expressions;
 
 namespace Ecommerce.Domain.Services
 {
