@@ -37,4 +37,4 @@ Comando: dotnet ef database update --startup-project ..\Ecommerce.API\
 Executar o comando 'dotnet run' no terminal dentro da pasta \Ecommerce.API\Ecommerce.API
 
 ## Documentação das requisições da API:
-Apos executar a aplicação: https://localhost:7293/swagger/index.html
+Após executar a aplicação: https://localhost:7293/swagger/index.html
