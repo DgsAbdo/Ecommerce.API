@@ -44,6 +44,9 @@ namespace Ecommerce.Domain.Services
         {
             try
             {
+                if (idProduto == 0 || quantidade == 0)
+                    return new ResultModel(false, "Id do produto ou quantidade invalida", idProduto);
+
                 CarrinhoCompras carrinho = _repositoryCarrinho.retornarCarrinhoDeCompras();
                 carrinho = RemoverItemDoCarrinho(quantidade, idProduto, carrinho);
                 carrinho.ValorTotal = CalcularValorTotalCarrinho(carrinho);
