@@ -23,14 +23,14 @@ namespace Ecommerce.Api.Controllers
             return service.AdicionarProdutoNoCarrinho(idProduto, quantidade);
         }
 
-        [Route("removerProdutosNoCarrinho")]
+        [Route("removerProdutosDoCarrinho")]
         [HttpPut]
         public ResultModel RemoverProdutoNoCarrinho([FromServices] CarrinhoService service, int idProduto, int quantidade)
         {
             return service.RemoverProdutoDoCarrinho(idProduto, quantidade);
         }
 
-        [Route("limparProdutosNoCarrinho")]
+        [Route("limparProdutosDoCarrinho")]
         [HttpPut]
         public ResultModel LimparProdutoNoCarrinho([FromServices] CarrinhoService service)
         {

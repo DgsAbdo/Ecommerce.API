@@ -1,7 +1,7 @@
 ﻿using Ecommerce.Domain.Commands;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Ecommerce.Domain.Services
 {
@@ -19,7 +19,7 @@ namespace Ecommerce.Domain.Services
         public ResultModel AdicionarProdutoNoCarrinho(int idProduto, int quantidade)
         {
             if(idProduto == 0)
-                return new ResultModel(false, "Id invalido.", idProduto);
+                return new ResultModel(false, "Id do produto invalido.", idProduto);
 
             var produto = _repositoryProduto.PegarPorId(idProduto);
 
@@ -28,9 +28,12 @@ namespace Ecommerce.Domain.Services
 
             try
             {
-                AdicionarItensCarrinho(produto, quantidade);
+                CarrinhoCompras carrinho = _repositoryCarrinho.retornarCarrinhoDeCompras();
+                carrinho = VerificarItemEAdicionarDoCarrinho(produto, quantidade, carrinho);
+                carrinho.ValorTotal = CalcularValorTotalCarrinho(carrinho);
+                _repositoryCarrinho.AtualizarCarrinhoCompras(carrinho);
 
-                return new ResultModel(true, "Produto adicionado ao carrinho.", produto);
+                return new ResultModel(true, $"{quantidade}x {produto.Nome} - Adicionado ao carrinho com sucesso.", carrinho);
 
             }catch(Exception ex) 
             {
@@ -40,15 +43,34 @@ namespace Ecommerce.Domain.Services
 
         public ResultModel RemoverProdutoDoCarrinho(int idProduto, int quantidade)
         {
-            return null;
+            try
+            {
+                CarrinhoCompras carrinho = _repositoryCarrinho.retornarCarrinhoDeCompras();
+                RemoverItemDoCarrinho(quantidade, idProduto, carrinho);
+                carrinho.ValorTotal = CalcularValorTotalCarrinho(carrinho);
+                _repositoryCarrinho.AtualizarCarrinhoCompras(carrinho);
+                return new ResultModel(true, $"Item removido do carrinho.", carrinho);
+            }
+            catch(Exception ex) 
+            {
+                return new ResultModel(false, ex.Message, ex);
+            }
         }
 
         public ResultModel LimparProdutosDoCarrinho()
         {
             try
             {
-                _repositoryCarrinho.LimparCarrinho();
-                return new ResultModel(true, "Carrinho limpo com sucesso", null);
+                var carrinho = _repositoryCarrinho.retornarCarrinhoDeCompras();
+                if (carrinho.ItensCarrinho == null)
+                    return new ResultModel(false, "Carrinho não possui itens.", carrinho);
+                else
+                {
+                    carrinho.ItensCarrinho.Clear();
+                    carrinho.ValorTotal = 0;
+                    _repositoryCarrinho.AtualizarCarrinhoCompras(carrinho);
+                    return new ResultModel(true, "Carrinho limpo com sucesso", carrinho);
+                }
 
             }
             catch(Exception ex)
@@ -57,18 +79,8 @@ namespace Ecommerce.Domain.Services
             }
         }
 
-        #region Metodos Privados
-        private void AdicionarItensCarrinho(Produto produto, int quantidade)
+        private CarrinhoCompras VerificarItemEAdicionarDoCarrinho(Produto produto, int quantidade, CarrinhoCompras carrinho)
         {
-            CarrinhoCompras carrinho = _repositoryCarrinho.retornarCarrinhoDeCompras();
-            carrinho = VerificarItemEAdicionarNoCarrinho(produto, quantidade, carrinho);
-            carrinho.ValorTotal = CalcularValorTotalCarrinho(carrinho);
-            _repositoryCarrinho.AtualizarCarrinhoCompras(carrinho);
-        }
-
-        private CarrinhoCompras VerificarItemEAdicionarNoCarrinho(Produto produto, int quantidade, CarrinhoCompras carrinho)
-        {
-            //implementar logica de itemExistente
             ItemCarrinho itemExistente = carrinho.ItensCarrinho.FirstOrDefault(i => i.ProdutoId == produto.Id);
 
             if (itemExistente != null)
@@ -89,6 +101,24 @@ namespace Ecommerce.Domain.Services
             return carrinho;
         }
 
+        private CarrinhoCompras RemoverItemDoCarrinho(int quantidade, int produtoId, CarrinhoCompras carrinho)
+        {
+            var itemCarrinho = carrinho.ItensCarrinho.FirstOrDefault(i => i.ProdutoId == produtoId);
+
+            if (itemCarrinho != null)
+            {
+                itemCarrinho.Quantidade -= quantidade;
+
+                if (itemCarrinho.Quantidade <= 0)
+                    carrinho.ItensCarrinho.Remove(itemCarrinho);
+                else
+                    carrinho.ItensCarrinho.FirstOrDefault(i => i.ProdutoId == produtoId).Quantidade = itemCarrinho.Quantidade;
+            }
+
+            return carrinho;
+        }
+
+        #region Metodos para calcular o valor total do carrinho
         private double CalcularValorTotalCarrinho(CarrinhoCompras carrinho)
         {
             double valorTotal = 0;
@@ -150,47 +180,6 @@ namespace Ecommerce.Domain.Services
 
             return valorItem;
         }
-
-        //private double CalcularValorTotalCarrinho(CarrinhoCompras carrinho)
-        //{
-        //    double valorTotal = 0;
-
-        //    foreach (var item in carrinho.ItensCarrinho)
-        //    {
-        //        Produto produto = item.Produto;
-        //        Promocao promocao = produto.Promocao;
-
-        //        double valorItem = 0;
-
-        //        if (promocao != null)
-        //        {
-        //            if (promocao.PromocaoComValorFixo)
-        //            {
-        //                int quantidadePromocional = promocao.Quantidade;
-        //                int quantidadePromocoesAplicadas = item.Quantidade / quantidadePromocional;
-        //                int quantidadeProdutosSemPromocao = item.Quantidade % quantidadePromocional;
-
-        //                valorItem = (quantidadePromocoesAplicadas * promocao.Valor) + (quantidadeProdutosSemPromocao * produto.Preco);
-        //            }
-        //            else
-        //            {
-        //                int quantidadePromocional = promocao.Quantidade;
-        //                int quantidadePromocoesAplicadas = item.Quantidade / (quantidadePromocional + 1);
-        //                int quantidadeProdutosSemPromocao = item.Quantidade % (quantidadePromocional + 1);
-
-        //                valorItem = (quantidadePromocoesAplicadas * (promocao.Valor * quantidadePromocional)) + (quantidadeProdutosSemPromocao * produto.Preco);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            valorItem = produto.Preco * item.Quantidade;
-        //        }
-
-        //        valorTotal += valorItem;
-        //    }
-
-        //    return valorTotal;
-        //}
-        #endregion
+        #endregion  
     }
 }

@@ -12,8 +12,5 @@ namespace Ecommerce.Domain.Repositories
     {
         public CarrinhoCompras retornarCarrinhoDeCompras();
         void AtualizarCarrinhoCompras(CarrinhoCompras carrinho);
-        void LimparCarrinho();
-        void RemoverProdutosDoCarrinho();
-
     }
 }

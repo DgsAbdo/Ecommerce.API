@@ -47,6 +47,5 @@ namespace Ecommerce.Infra.Repositories
 
             return carrinho;
         }
-
     }
 }
